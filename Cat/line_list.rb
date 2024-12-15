@@ -13,7 +13,7 @@ class LineList
     lines = add_line_numbers if @options[:line_numbers]
 
     if @options[:line_numbers_non_blank]
-      # todo
+      lines = add_line_numbers(skip_blank: true)
     end
 
     if @options[:squeeze_blank]
@@ -39,7 +39,12 @@ class LineList
 
   private
 
-    def add_line_numbers
-      @lines.each_with_index.map { |line, index| "#{index + 1} #{line}" }
+    def add_line_numbers(skip_blank: false)
+      index = 0
+      @lines.map do |line|
+        next line if skip_blank && line.strip.empty?
+        index += 1
+        "#{index} #{line}"
+      end
     end
 end

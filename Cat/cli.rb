@@ -7,8 +7,8 @@ class Cli
 
     opt = OptionParser.new
     opt.on('-n') { |v| @options[:line_numbers] = v }
+    opt.on('-b') { |v| @options[:line_numbers_non_blank] = v }
     opt.parse!(argv)
-
 
     if argv.empty?
       puts 'Usage: cagt [options] [file ...]'
