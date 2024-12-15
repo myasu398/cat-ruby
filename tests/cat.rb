@@ -1,4 +1,4 @@
-require_relative '../Cat/cli'
+require_relative '../cat/cli'
 
 require 'minitest/autorun'
 
