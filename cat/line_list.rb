@@ -9,16 +9,19 @@ class LineList
   end
 
   def modify!
-    lines = @lines
-    lines = add_line_numbers if @options[:line_numbers]
+    if @options[:squeeze_blank]
+      lines = @lines.chunk { |line| line.strip.empty? }
+      @lines = lines.map do |is_blank, chunk|
+        is_blank ? '' : chunk
+      end.flatten
+    end
+
+    add_line_numbers if @options[:line_numbers]
 
     if @options[:line_numbers_non_blank]
-      lines = add_line_numbers(skip_blank: true)
+      add_line_numbers(skip_blank: true)
     end
 
-    if @options[:squeeze_blank]
-      # todo
-    end
 
     if @options[:display_non_printing]
       # todo
@@ -34,17 +37,25 @@ class LineList
       # todo
     end
 
-    lines
+    @lines
   end
 
   private
 
     def add_line_numbers(skip_blank: false)
       index = 0
-      @lines.map do |line|
+      @lines.map! do |line|
         next line if skip_blank && line.strip.empty?
         index += 1
         "#{index} #{line}"
       end
+    end
+
+    def blank_line_chunk
+      @lines.chunk { |line| line.strip.empty? }
+    end
+
+    def squeeze_blank_lines
+      @lines = blank_line_chunk.map { |is_blank, chunk| is_blank ? '' : chunk }.flatten
     end
 end
