@@ -6,8 +6,8 @@ class Cli
     @options = {}
 
     opt = OptionParser.new
-    opt.on('-n') { |v| @options[:line_numbers] = v }
-    opt.on('-b') { |v| @options[:line_numbers_non_blank] = v }
+    opt.on('-n', 'print with numbers') { |v| @options[:line_numbers] = v }
+    opt.on('-b', 'print with numbers, non-blank lines') { |v| @options[:line_numbers_non_blank] = v }
     opt.parse!(argv)
 
     if argv.empty?
