@@ -1,0 +1,4 @@
+#! /usr/bin/env ruby
+require_relative '../Cat/cli'
+
+Cli.new(ARGV).exec
