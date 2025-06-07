@@ -12,7 +12,7 @@ class Cli
     opt.parse!(argv)
 
     if argv.empty?
-      puts 'Usage: cagt [options] [file ...]'
+      puts 'Usage: cat [options] [file ...]'
       exit 1
     end
 
