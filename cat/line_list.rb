@@ -16,10 +16,10 @@ class LineList
       end.flatten
     end
 
-    add_line_numbers if @options[:line_numbers]
-
     if @options[:line_numbers_non_blank]
       add_line_numbers(skip_blank: true)
+    elsif @options[:line_numbers]
+      add_line_numbers
     end
 
 

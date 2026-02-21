@@ -28,6 +28,11 @@ class CatTest < Minitest::Test
     assert_output("1 aaa\n2 bbb\n\n\n\n3 ccc\n") { cli.exec }
   end
 
+  def test_exec_with_line_numbers_and_line_numbers_non_blank
+    cli = Cli.new(['-n', '-b', './tests/example.txt'])
+    assert_output("1 aaa\n2 bbb\n\n\n\n3 ccc\n") { cli.exec }
+  end
+
   def test_exec_multiple_files
     cli = Cli.new(['./tests/example.txt', './tests/example2.txt'])
     assert_output("aaa\nbbb\n\n\n\nccc\neee\nfff\n") { cli.exec }
