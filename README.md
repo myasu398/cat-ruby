@@ -4,13 +4,26 @@ Cloned the cat command using Ruby
 ## Usage
 
 ```bash
+$ bin/cat [options] [file ...]
 $ bin/cat tests/example.txt
-# show options
-$ bin/cat -h
+$ bin/cat -n tests/example.txt
+$ bin/cat -b tests/example.txt
+$ bin/cat -s tests/example.txt
 ```
 
-## Test
+## Supported options
+- `-n`: number all output lines
+- `-b`: number non-blank output lines (`-n` より優先)
+- `-s`: squeeze multiple adjacent blank lines into one
 
-```
-$ ruby tests/*
+## Not yet supported
+- `-E` / `--show-ends`
+- `-T` / `--show-tabs`
+- `-v` (display non-printing)
+- `-u` (disable output buffering)
+
+## Tests
+
+```bash
+$ ruby tests/cat.rb
 ```
