@@ -23,7 +23,8 @@ class Cli
     cat = Cat.new(@path_list, @options)
     cat.exec
   rescue SystemCallError => e
-    warn e.message
+    path = e.respond_to?(:path) ? e.path : @path_list.first
+    warn "cat: #{path}: #{e.message.split(' @ ', 2).first}"
     exit 1
   end
 end

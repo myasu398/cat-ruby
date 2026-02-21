@@ -41,7 +41,7 @@ class CatTest < Minitest::Test
   def test_exec_with_non_existing_file
     cli = Cli.new(['./tests/not_found.txt'])
     error = assert_raises(SystemExit) do
-      assert_output('', /No such file or directory/) { cli.exec }
+      assert_output('', /cat: \.\/tests\/not_found\.txt: No such file or directory/) { cli.exec }
     end
     assert_equal 1, error.status
   end
