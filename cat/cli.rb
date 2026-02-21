@@ -22,5 +22,8 @@ class Cli
   def exec
     cat = Cat.new(@path_list, @options)
     cat.exec
+  rescue SystemCallError => e
+    warn e.message
+    exit 1
   end
 end
