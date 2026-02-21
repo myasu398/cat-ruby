@@ -1,61 +1,41 @@
 class LineList
-  def initialize(lines, options = {})
-    @lines = lines
+  def initialize(options = {})
     @options = options
+    @line_number = 0
+    @previous_blank_line = false
   end
 
-  def modified_lines
-    modify!
-  end
+  def process(line)
+    line = squeeze_blank(line)
+    return nil unless line
 
-  def modify!
-    if @options[:squeeze_blank]
-      lines = @lines.chunk { |line| line.strip.empty? }
-      @lines = lines.map do |is_blank, chunk|
-        is_blank ? '' : chunk
-      end.flatten
-    end
-
-    if @options[:line_numbers_non_blank]
-      add_line_numbers(skip_blank: true)
-    elsif @options[:line_numbers]
-      add_line_numbers
-    end
-
-
-    if @options[:display_non_printing]
-      # todo
-      if @options[:show_ends]
-        # todo
-      end
-      if @options[:show_tabs]
-        # todo
-      end
-    end
-
-    if @options[:disable_output_buffering]
-      # todo
-    end
-
-    @lines
+    add_line_number(line)
   end
 
   private
 
-    def add_line_numbers(skip_blank: false)
-      index = 0
-      @lines.map! do |line|
-        next line if skip_blank && line.strip.empty?
-        index += 1
-        "#{index} #{line}"
+    def squeeze_blank(line)
+      return line unless @options[:squeeze_blank]
+      return non_blank_line(line) unless line.strip.empty?
+      return nil if @previous_blank_line
+
+      @previous_blank_line = true
+      "\n"
+    end
+
+    def non_blank_line(line)
+      @previous_blank_line = false
+      line
+    end
+
+    def add_line_number(line)
+      if @options[:line_numbers_non_blank]
+        return line if line.strip.empty?
+      elsif !@options[:line_numbers]
+        return line
       end
-    end
 
-    def blank_line_chunk
-      @lines.chunk { |line| line.strip.empty? }
-    end
-
-    def squeeze_blank_lines
-      @lines = blank_line_chunk.map { |is_blank, chunk| is_blank ? '' : chunk }.flatten
+      @line_number += 1
+      "#{@line_number} #{line}"
     end
 end

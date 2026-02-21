@@ -4,19 +4,15 @@ class Cat
 
   def initialize(path_list, options = {})
     @path_list = path_list
-    @options = options
-    @lines = LineList.new(readlines, options)
+    @line_list = LineList.new(options)
   end
 
   def exec
-    puts @lines.modified_lines
-  end
-
-  private
-
-    def readlines
-      @path_list.each_with_object([]) do |path, lines|
-        File.foreach(path) { |line| lines << line }
+    @path_list.each do |path|
+      File.foreach(path) do |line|
+        modified_line = @line_list.process(line)
+        print modified_line if modified_line
       end
     end
+  end
 end
