@@ -45,4 +45,24 @@ class CatTest < Minitest::Test
     end
     assert_equal 1, error.status
   end
+
+  def test_exec_with_empty_file
+    cli = Cli.new(['./tests/empty.txt'])
+    assert_output('') { cli.exec }
+  end
+
+  def test_exec_with_squeeze_blank_and_leading_blank_lines
+    cli = Cli.new(['-s', './tests/leading_blank.txt'])
+    assert_output("\nstart\nend\n") { cli.exec }
+  end
+
+  def test_exec_with_squeeze_blank_and_trailing_blank_lines
+    cli = Cli.new(['-s', './tests/trailing_blank.txt'])
+    assert_output("start\n\n") { cli.exec }
+  end
+
+  def test_exec_with_squeeze_blank_across_multiple_files
+    cli = Cli.new(['-s', './tests/squeeze_boundary_a.txt', './tests/squeeze_boundary_b.txt'])
+    assert_output("aaa\n\nbbb\n") { cli.exec }
+  end
 end
