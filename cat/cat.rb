@@ -14,11 +14,9 @@ class Cat
 
   private
 
-    def files
-      @path_list.map { |path| File.open(path, 'r') }
-    end
-
     def readlines
-      files.flat_map { |file| file.readlines }
+      @path_list.each_with_object([]) do |path, lines|
+        File.foreach(path) { |line| lines << line }
+      end
     end
 end
