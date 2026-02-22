@@ -9,6 +9,7 @@ class Cli
     opt.on('-n', 'print with numbers') { |v| @options[:line_numbers] = v }
     opt.on('-b', 'print with numbers, non-blank lines') { |v| @options[:line_numbers_non_blank] = v }
     opt.on('-s', 'squeeze blank lines') { |v| @options[:squeeze_blank] = v }
+    opt.on('-E', '--show-ends', 'display $ at end of each line') { |v| @options[:show_ends] = v }
     opt.parse!(argv)
 
     if argv.empty?

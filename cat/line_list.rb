@@ -9,7 +9,8 @@ class LineList
     line = squeeze_blank(line)
     return nil unless line
 
-    add_line_number(line)
+    line = add_line_number(line)
+    show_ends(line)
   end
 
   private
@@ -37,5 +38,15 @@ class LineList
 
       @line_number += 1
       "#{@line_number} #{line}"
+    end
+
+    def show_ends(line)
+      return line unless @options[:show_ends]
+
+      if line.end_with?("\n")
+        line.sub(/\n\z/, "$\n")
+      else
+        "#{line}$"
+      end
     end
 end

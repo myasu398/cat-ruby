@@ -65,4 +65,14 @@ class CatTest < Minitest::Test
     cli = Cli.new(['-s', './tests/squeeze_boundary_a.txt', './tests/squeeze_boundary_b.txt'])
     assert_output("aaa\n\nbbb\n") { cli.exec }
   end
+
+  def test_exec_with_show_ends
+    cli = Cli.new(['-E', './tests/example.txt'])
+    assert_output("aaa$\nbbb$\n$\n$\n$\nccc$\n") { cli.exec }
+  end
+
+  def test_exec_with_line_numbers_non_blank_and_show_ends
+    cli = Cli.new(['-b', '-E', './tests/example.txt'])
+    assert_output("1 aaa$\n2 bbb$\n$\n$\n$\n3 ccc$\n") { cli.exec }
+  end
 end
