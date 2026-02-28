@@ -1,0 +1,15 @@
+class LineList
+  @options: cat_options
+  @line_number: Integer
+  @previous_blank_line: bool
+
+  def initialize: (?cat_options options) -> void
+  def process: (String line) -> String?
+
+  private
+
+  def squeeze_blank: (String line) -> String?
+  def non_blank_line: (String line) -> String
+  def add_line_number: (String line) -> String
+  def show_ends: (String line) -> String
+end

@@ -1,0 +1,7 @@
+class Cat
+  @path_list: Array[String]
+  @line_list: LineList
+
+  def initialize: (Array[String] path_list, ?cat_options options) -> void
+  def exec: () -> void
+end

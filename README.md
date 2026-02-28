@@ -27,3 +27,10 @@ $ bin/cat -s tests/example.txt
 ```bash
 $ ruby tests/cat.rb
 ```
+
+## Type check (RBS/Steep)
+
+```bash
+$ bundle install
+$ bundle exec steep check
+```

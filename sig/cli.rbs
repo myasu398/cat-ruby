@@ -1,0 +1,7 @@
+class Cli
+  @options: cat_options
+  @path_list: Array[String]
+
+  def initialize: (Array[String] argv) -> void
+  def exec: () -> void
+end
